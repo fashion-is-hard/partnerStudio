@@ -1,0 +1,454 @@
+{
+  "proposals": [
+    {
+      "id": 1,
+      "category": "생활용품",
+      "title": "향초 무드 라벤더",
+      "company": "클린데이",
+      "product": 88,
+      "brand": 79,
+      "risk": 18
+    },
+    {
+      "id": 2,
+      "category": "생활용품",
+      "title": "향초 무드 라벤더",
+      "company": "그로우업",
+      "product": 88,
+      "brand": 81,
+      "risk": 11
+    },
+    {
+      "id": 3,
+      "category": "스킨케어",
+      "title": "속광 수분크림",
+      "company": "한실 산업",
+      "product": 77,
+      "brand": 84,
+      "risk": 12
+    },
+    {
+      "id": 4,
+      "category": "메이크업",
+      "title": "하루종일 무너짐 없는 틴트",
+      "company": "루미코스",
+      "product": 79,
+      "brand": 58,
+      "risk": 11
+    },
+    {
+      "id": 5,
+      "category": "바디케어",
+      "title": "바디크림 딥모이스처",
+      "company": "뷰티픽",
+      "product": 93,
+      "brand": 61,
+      "risk": 16
+    },
+    {
+      "id": 6,
+      "category": "바디케어",
+      "title": "바디스크럽 솔트 폴리싱",
+      "company": "모던웍스",
+      "product": 79,
+      "brand": 57,
+      "risk": 4
+    },
+    {
+      "id": 7,
+      "category": "바디케어",
+      "title": "바디스크럽 솔트 폴리싱 (3세대)",
+      "company": "온리원",
+      "product": 78,
+      "brand": 62,
+      "risk": 16
+    },
+    {
+      "id": 8,
+      "category": "건강기능",
+      "title": "오메가3 rTG",
+      "company": "리프레시",
+      "product": 93,
+      "brand": 63,
+      "risk": 10
+    },
+    {
+      "id": 9,
+      "category": "헤어케어",
+      "title": "컬 크림 내추럴 웨이브",
+      "company": "스킨앤코",
+      "product": 76,
+      "brand": 74,
+      "risk": 3
+    },
+    {
+      "id": 10,
+      "category": "헤어케어",
+      "title": "컬 크림 내추럴 웨이브",
+      "company": "그로우업",
+      "product": 92,
+      "brand": 85,
+      "risk": 15
+    },
+    {
+      "id": 11,
+      "category": "스킨케어",
+      "title": "시카 진정 패드",
+      "company": "바이탈랩",
+      "product": 89,
+      "brand": 69,
+      "risk": 1
+    },
+    {
+      "id": 12,
+      "category": "헤어케어",
+      "title": "볼륨업 드라이 샴푸",
+      "company": "코어앤코",
+      "product": 75,
+      "brand": 71,
+      "risk": 3
+    },
+    {
+      "id": 13,
+      "category": "헤어케어",
+      "title": "단백질 헤어팩 집중케어",
+      "company": "더그린",
+      "product": 95,
+      "brand": 76,
+      "risk": 17
+    },
+    {
+      "id": 14,
+      "category": "스킨케어",
+      "title": "장벽 강화 세라마이드 크림 (3세대)",
+      "company": "셀라바이오",
+      "product": 76,
+      "brand": 59,
+      "risk": 7
+    },
+    {
+      "id": 15,
+      "category": "생활용품",
+      "title": "치약 미백 케어",
+      "company": "리틀포레스트",
+      "product": 88,
+      "brand": 63,
+      "risk": 9
+    },
+    {
+      "id": 16,
+      "category": "헤어케어",
+      "title": "볼륨업 드라이 샴푸",
+      "company": "더그린",
+      "product": 75,
+      "brand": 62,
+      "risk": 2
+    },
+    {
+      "id": 17,
+      "category": "바디케어",
+      "title": "향 오래가는 퍼퓸 바디미스트",
+      "company": "하이브랩",
+      "product": 96,
+      "brand": 61,
+      "risk": 16
+    },
+    {
+      "id": 18,
+      "category": "스킨케어",
+      "title": "콜라겐 리프팅 앰플",
+      "company": "온리원",
+      "product": 98,
+      "brand": 67,
+      "risk": 15
+    },
+    {
+      "id": 19,
+      "category": "스킨케어",
+      "title": "저자극 약산성 토너",
+      "company": "셀라바이오",
+      "product": 85,
+      "brand": 61,
+      "risk": 2
+    },
+    {
+      "id": 20,
+      "category": "건강기능",
+      "title": "비타민C 1000 고함량",
+      "company": "하이브랩",
+      "product": 74,
+      "brand": 57,
+      "risk": 11
+    },
+    {
+      "id": 21,
+      "category": "바디케어",
+      "title": "핸드크림 고보습 쉐어버터 (5세대)",
+      "company": "클린데이",
+      "product": 95,
+      "brand": 83,
+      "risk": 6
+    },
+    {
+      "id": 22,
+      "category": "생활용품",
+      "title": "화장솜 대용량",
+      "company": "하이브랩",
+      "product": 71,
+      "brand": 72,
+      "risk": 11
+    },
+    {
+      "id": 23,
+      "category": "생활용품",
+      "title": "화장솜 대용량",
+      "company": "바이탈랩",
+      "product": 71,
+      "brand": 76,
+      "risk": 17
+    },
+    {
+      "id": 24,
+      "category": "메이크업",
+      "title": "프리즘 하이라이터",
+      "company": "바이탈랩",
+      "product": 98,
+      "brand": 63,
+      "risk": 1
+    },
+    {
+      "id": 25,
+      "category": "헤어케어",
+      "title": "손상모 복구 단백질 샴푸",
+      "company": "리틀포레스트",
+      "product": 93,
+      "brand": 56,
+      "risk": 17
+    },
+    {
+      "id": 26,
+      "category": "생활용품",
+      "title": "디퓨저 우디향",
+      "company": "하이브랩",
+      "product": 75,
+      "brand": 61,
+      "risk": 9
+    },
+    {
+      "id": 27,
+      "category": "헤어케어",
+      "title": "두피 진정 스케일링 토닉",
+      "company": "메이커업",
+      "product": 88,
+      "brand": 78,
+      "risk": 3
+    },
+    {
+      "id": 28,
+      "category": "헤어케어",
+      "title": "노워시 트리트먼트 미스트 (3세대)",
+      "company": "온리원",
+      "product": 93,
+      "brand": 71,
+      "risk": 2
+    },
+    {
+      "id": 29,
+      "category": "헤어케어",
+      "title": "탈모케어 카페인 샴푸",
+      "company": "코어앤코",
+      "product": 83,
+      "brand": 83,
+      "risk": 15
+    },
+    {
+      "id": 30,
+      "category": "스킨케어",
+      "title": "콜라겐 리프팅 앰플",
+      "company": "스킨앤코",
+      "product": 98,
+      "brand": 60,
+      "risk": 6
+    },
+    {
+      "id": 31,
+      "category": "건강기능",
+      "title": "마그네슘 수면케어",
+      "company": "에코랩",
+      "product": 88,
+      "brand": 58,
+      "risk": 12
+    },
+    {
+      "id": 32,
+      "category": "헤어케어",
+      "title": "열보호 헤어에센스",
+      "company": "더그린",
+      "product": 95,
+      "brand": 69,
+      "risk": 2
+    },
+    {
+      "id": 33,
+      "category": "헤어케어",
+      "title": "볼륨업 드라이 샴푸",
+      "company": "한실 산업",
+      "product": 79,
+      "brand": 86,
+      "risk": 6
+    },
+    {
+      "id": 34,
+      "category": "헤어케어",
+      "title": "비듬 케어 약산성 샴푸",
+      "company": "메이커업",
+      "product": 73,
+      "brand": 70,
+      "risk": 5
+    },
+    {
+      "id": 35,
+      "category": "스킨케어",
+      "title": "수분 폭탄 히알루론 크림 (5세대)",
+      "company": "노바케어",
+      "product": 79,
+      "brand": 70,
+      "risk": 1
+    },
+    {
+      "id": 36,
+      "category": "바디케어",
+      "title": "튼살 케어 바디오일",
+      "company": "루미코스",
+      "product": 80,
+      "brand": 79,
+      "risk": 11
+    },
+    {
+      "id": 37,
+      "category": "헤어케어",
+      "title": "열보호 헤어에센스",
+      "company": "블룸코스",
+      "product": 82,
+      "brand": 60,
+      "risk": 11
+    },
+    {
+      "id": 38,
+      "category": "바디케어",
+      "title": "저자극 시카 바디로션",
+      "company": "바이탈랩",
+      "product": 88,
+      "brand": 60,
+      "risk": 16
+    },
+    {
+      "id": 39,
+      "category": "생활용품",
+      "title": "메이크업 브러시 클리너",
+      "company": "온리원",
+      "product": 77,
+      "brand": 85,
+      "risk": 10
+    },
+    {
+      "id": 40,
+      "category": "메이크업",
+      "title": "세미매트 쿠션 파운데이션",
+      "company": "하이브랩",
+      "product": 83,
+      "brand": 59,
+      "risk": 2
+    },
+    {
+      "id": 41,
+      "category": "스킨케어",
+      "title": "장벽 강화 세라마이드 크림",
+      "company": "모노랩",
+      "product": 90,
+      "brand": 76,
+      "risk": 14
+    },
+    {
+      "id": 42,
+      "category": "스킨케어",
+      "title": "장벽 강화 세라마이드 크림 (2세대)",
+      "company": "에코랩",
+      "product": 88,
+      "brand": 73,
+      "risk": 12
+    },
+    {
+      "id": 43,
+      "category": "스킨케어",
+      "title": "나이아신 톤업 에센스",
+      "company": "바이탈랩",
+      "product": 98,
+      "brand": 55,
+      "risk": 1
+    },
+    {
+      "id": 44,
+      "category": "생활용품",
+      "title": "향균 핸드워시",
+      "company": "스킨앤코",
+      "product": 74,
+      "brand": 65,
+      "risk": 18
+    },
+    {
+      "id": 45,
+      "category": "메이크업",
+      "title": "프리즘 하이라이터",
+      "company": "루미코스",
+      "product": 81,
+      "brand": 64,
+      "risk": 1
+    },
+    {
+      "id": 46,
+      "category": "건강기능",
+      "title": "홍삼 스틱 데일리",
+      "company": "노바케어",
+      "product": 77,
+      "brand": 65,
+      "risk": 5
+    },
+    {
+      "id": 47,
+      "category": "생활용품",
+      "title": "섬유향수 코튼향",
+      "company": "노바케어",
+      "product": 86,
+      "brand": 77,
+      "risk": 8
+    },
+    {
+      "id": 48,
+      "category": "메이크업",
+      "title": "블러링 립무스",
+      "company": "더그린",
+      "product": 92,
+      "brand": 79,
+      "risk": 6
+    },
+    {
+      "id": 49,
+      "category": "건강기능",
+      "title": "멀티비타민 올인원 (3세대)",
+      "company": "리틀포레스트",
+      "product": 83,
+      "brand": 75,
+      "risk": 19
+    },
+    {
+      "id": 50,
+      "category": "생활용품",
+      "title": "화장솜 대용량",
+      "company": "온리원",
+      "product": 79,
+      "brand": 57,
+      "risk": 8
+    }
+  ]
+}
