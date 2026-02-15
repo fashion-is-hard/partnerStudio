@@ -1,0 +1,169 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Olive Partner Studio</title>
+  <meta name="description" content="Where AI Meets Merchandising Intelligence — AI 기반 제안서 분석으로 더 빠르고, 더 공정하게" />
+
+  <style>
+    :root{
+      /* 이미지 톤에 맞춘 컬러 (근접값) */
+      --band: #2e2f27;         /* 상/하단 다크 */
+      --textWhite: #ffffff;
+      --textDark: #2b2b25;     /* 중앙 문구 다크 */
+      --midGrad: linear-gradient(90deg,
+        #8fc7d2 0%,
+        #a8c7a8 45%,
+        #b7c65c 100%
+      );
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+                   "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic", sans-serif;
+      background: var(--band);
+    }
+
+    .page{
+      min-height: 100vh;
+      display:flex;
+      flex-direction:column;
+    }
+
+    /* 상단 밴드 */
+    .top{
+      background: var(--band);
+      padding: clamp(34px, 5vw, 56px) 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .brand{
+      color: var(--textWhite);
+      font-weight: 800;
+      font-style: italic;
+      letter-spacing: -0.5px;
+      font-size: clamp(34px, 4.6vw, 64px);
+      line-height: 1;
+      text-align:center;
+    }
+
+    /* 중앙 그라데이션 영역 */
+    .middle{
+      flex: 1 1 auto;
+      background: var(--midGrad);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding: clamp(28px, 5vw, 72px) 20px;
+    }
+    .middleInner{
+      width: min(980px, 92vw);
+      text-align:center;
+    }
+
+    .headline{
+      margin: 0 0 clamp(22px, 3vw, 40px) 0;
+      color: var(--textDark);
+      font-weight: 900;
+      font-style: italic;
+      letter-spacing: -0.8px;
+      font-size: clamp(34px, 4.4vw, 64px);
+      line-height: 1.08;
+    }
+
+    .subcopy{
+      margin: 0;
+      color: var(--textDark);
+      font-weight: 700;
+      font-size: clamp(14px, 1.3vw, 18px);
+      line-height: 1.55;
+      opacity: .9;
+      white-space: pre-line;
+    }
+
+    /* 하단 밴드 */
+    .bottom{
+      background: var(--band);
+      padding: clamp(26px, 4vw, 44px) 20px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+
+    .ctaRow{
+      width: min(980px, 92vw);
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap: 18px;
+    }
+
+    .cta{
+      color: var(--textWhite);
+      text-decoration:none;
+      font-weight: 800;
+      font-size: clamp(20px, 2.3vw, 34px);
+      letter-spacing: -0.3px;
+      display:inline-flex;
+      align-items:center;
+      gap: 14px;
+      padding: 10px 8px;
+    }
+
+    .cta .arrow{
+      font-size: 1.05em;
+      line-height: 1;
+    }
+
+    /* 모바일에서는 세로로 정렬 */
+    @media (max-width: 680px){
+      .ctaRow{
+        flex-direction:column;
+        align-items:flex-start;
+      }
+      .cta{
+        width: 100%;
+        justify-content:flex-start;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="page">
+    <!-- TOP BAND -->
+    <header class="top">
+      <div class="brand">Olive Partner Studio</div>
+    </header>
+
+    <!-- MIDDLE GRADIENT -->
+    <main class="middle">
+      <div class="middleInner">
+        <h1 class="headline">Where AI Meets<br/>Merchandising Intelligence</h1>
+        <p class="subcopy">AI 기반 제안서 분석으로
+더 빠르고, 더 공정하게</p>
+      </div>
+    </main>
+
+    <!-- BOTTOM BAND -->
+    <footer class="bottom">
+      <nav class="ctaRow" aria-label="콘솔 이동">
+        <a class="cta" href="md-console.html">
+          <span class="arrow">→</span>
+          <span>MD 콘솔 이동</span>
+        </a>
+
+        <a class="cta" href="seller-console.html">
+          <span class="arrow">→</span>
+          <span>Seller 콘솔 이동</span>
+        </a>
+      </nav>
+    </footer>
+  </div>
+</body>
+</html>

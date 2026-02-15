@@ -1,0 +1,637 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Olive Partner Studio — MD Console</title>
+
+  <style>
+    :root{
+      --bg:#2d2f2a;
+      --sidebar:#7b772f;
+      --sidebarLine: rgba(255,255,255,0.22);
+
+      --white:#ffffff;
+      --ink:#23231f;
+
+      --olive:#b7bf39;
+      --oliveDeep:#6f6d2a;
+
+      --danger:#e35a57;
+      --shadow: 0 10px 18px rgba(0,0,0,0.22);
+
+      --r12:12px;
+      --r16:16px;
+      --r20:20px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+                   "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color:#fff;
+    }
+
+    /* 레이아웃: 사이드바 고정 + 메인만 스크롤 */
+    .app{
+      height: 100vh;
+      display:grid;
+      grid-template-columns: 360px 1fr; /* 레퍼런스 비율 */
+    }
+
+    /* ================= Sidebar (sticky) ================= */
+    .sidebar{
+      background: var(--sidebar);
+      padding: 28px 26px;
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      overflow: hidden;
+      display:flex;
+      flex-direction:column;
+      gap: 22px;
+    }
+
+    .sb-brand{
+      font-weight: 1100;
+      font-style: italic;
+      letter-spacing: -0.6px;
+      font-size: 34px;
+      line-height: 1.05;
+    }
+
+    .sb-profile{
+      display:flex;
+      align-items:center;
+      gap: 16px;
+      padding: 10px 2px 6px;
+    }
+
+    .avatar{
+      width: 86px;
+      height: 86px;
+      border-radius: 999px;
+      background: var(--olive);
+      display:grid;
+      place-items:center;
+      box-shadow: inset 0 0 0 7px rgba(255,255,255,0.18);
+      flex: 0 0 auto;
+    }
+    .avatar svg{ width: 48px; height:48px; fill:#fff; opacity:0.95; }
+
+    .hello .name{
+      font-weight: 1100;
+      font-size: 22px;
+      line-height: 1.2;
+    }
+    .hello .msg{
+      margin-top: 6px;
+      font-weight: 1100;
+      font-size: 22px;
+      color: var(--olive);
+      line-height: 1.2;
+    }
+
+    .sb-menu{
+      margin-top: 10px;
+      border-top: 2px solid var(--sidebarLine);
+    }
+
+    .sb-item{
+      display:flex;
+      align-items:center;
+      padding: 20px 8px;
+      color:#fff;
+      text-decoration:none;
+      font-weight: 1100;
+      font-size: 22px;
+      letter-spacing: -0.3px;
+      border-bottom: 2px solid var(--sidebarLine);
+      transition: background .12s ease;
+    }
+    .sb-item:hover{ background: rgba(0,0,0,0.08); }
+    .sb-item.active{ background: rgba(0,0,0,0.12); }
+
+    /* ================= Main (scroll) ================= */
+    .main{
+      height: 100vh;
+      overflow: auto;
+      padding: 28px 44px 44px;
+    }
+
+    /* 레퍼런스처럼 메인 내용 폭을 제한해 "퍼져보이는" 느낌 제거 */
+    .contentWrap{
+      max-width: 1320px;
+    }
+
+    .h1{
+      margin: 6px 0 16px;
+      font-size: 44px;
+      font-weight: 1200;
+      letter-spacing: -0.9px;
+    }
+
+    /* KPI cards - 가로 넓고 세로 낮게 */
+    .kpis{
+      display:grid;
+      grid-template-columns: repeat(4, minmax(260px, 1fr));
+      gap: 18px;
+      margin-bottom: 28px;
+    }
+
+    .kpi{
+      background: var(--white);
+      color: var(--ink);
+      border-radius: var(--r16);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 16px 18px;
+      height: 108px; /* 레퍼런스처럼 낮게 */
+      display:flex;
+      flex-direction:column;
+      justify-content:space-between;
+    }
+    .kpi .label{
+      font-weight: 1100;
+      font-size: 15px;
+      opacity: 0.9;
+    }
+    .kpi .valueRow{
+      display:flex;
+      align-items:baseline;
+      justify-content:center;
+      gap: 10px;
+    }
+    .kpi .value{
+      font-weight: 1300;
+      font-size: 64px;
+      line-height: 1;
+      letter-spacing: -1.2px;
+      color: var(--olive);
+    }
+    .kpi.danger .value{ color: var(--danger); }
+    .kpi .unit{
+      font-weight: 1100;
+      font-size: 18px;
+      opacity: 0.9;
+    }
+
+    /* Section head */
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap: 18px;
+      margin: 8px 0 14px;
+    }
+    .sectionTitle{
+      margin:0;
+      font-size: 44px;
+      font-weight: 1200;
+      letter-spacing: -0.9px;
+      line-height: 1.05;
+    }
+    .sectionTitle .accent{
+      color: var(--olive);
+      font-style: italic;
+    }
+
+    .sortBox{
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      font-weight: 1100;
+      font-size: 18px;
+      color:#fff;
+    }
+    .sortWrap{
+      position:relative;
+      display:inline-block;
+    }
+    .sortSelect{
+      appearance:none;
+      border: 2px solid rgba(255,255,255,0.35);
+      background: transparent;
+      color: #fff;
+      padding: 12px 54px 12px 16px;
+      border-radius: 12px;
+      font-weight: 1100;
+      font-size: 16px;
+      outline:none;
+      min-width: 240px;
+    }
+    .sortWrap::after{
+      content:"▼";
+      position:absolute;
+      right: 16px;
+      top: 50%;
+      transform: translateY(-52%);
+      font-size: 12px;
+      opacity: 0.9;
+      pointer-events:none;
+    }
+
+    /* ================= Proposal list ================= */
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+      padding-bottom: 30px;
+    }
+
+    /* 레퍼런스 핵심: 카드가 "낮고 넓게", 오른쪽 끝에 종합+화살표 */
+    .proposal{
+      background: var(--white);
+      color: var(--ink);
+      border-radius: var(--r20);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 18px 20px;
+      display:grid;
+      grid-template-columns: 240px 1fr 320px 70px; /* ✅ 비율 재조정 */
+      gap: 18px;
+      align-items:center;
+      min-height: 170px; /* ✅ 카드 높이 낮게 */
+    }
+
+    /* 썸네일: 레퍼런스는 거의 정사각형 */
+    .thumb{
+      width: 240px;
+      height: 150px;
+      border-radius: 14px;
+      background: #c7c7a8;
+      border: 1px solid rgba(0,0,0,0.12);
+      justify-self:start;
+    }
+
+    .mid{
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+      align-self:stretch;
+      padding-top: 2px;
+    }
+
+    .pill{
+      width: fit-content;
+      background: var(--oliveDeep);
+      color:#fff;
+      font-weight: 1100;
+      font-size: 13px;
+      padding: 7px 12px;
+      border-radius: 999px;
+    }
+
+    .title{
+      margin:0;
+      font-size: 26px;           /* ✅ 레퍼런스: 한 줄 크게 */
+      font-weight: 1300;
+      letter-spacing: -0.6px;
+      line-height: 1.15;
+    }
+
+    .company{
+      margin: 0;
+      font-size: 16px;
+      font-weight: 1100;
+      opacity: 0.85;
+    }
+
+    .bullets{
+      margin: 6px 0 0 0;
+      padding: 0;
+      list-style: none;
+      display:flex;
+      flex-direction:column;
+      gap: 4px;
+      font-weight: 1100;
+      font-size: 14px;           /* ✅ 레퍼런스처럼 한 단계 작게 */
+      line-height: 1.25;
+    }
+    .bullets .good{ color: var(--olive); }
+    .bullets .bad{ color: var(--danger); }
+
+    /* 오른쪽 정보 블록: (스코어 + 버튼) / (종합) 를 같은 영역에서 정렬 */
+    .right{
+      display:grid;
+      grid-template-columns: 1fr 150px; /* ✅ 종합 점수 폭 고정 */
+      column-gap: 16px;
+      align-items:center;
+    }
+
+    /* score list */
+    .scoreBox{
+      display:flex;
+      flex-direction:column;
+      gap: 10px;
+    }
+
+    .scores{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      row-gap: 8px;
+      column-gap: 12px;
+      align-items:center;
+      font-weight: 1100;
+      font-size: 16px;
+    }
+    .scores .k{ opacity: 0.9; }
+    .scores .v{
+      font-size: 26px;
+      font-weight: 1300;
+      color: var(--olive);
+      text-align:right;
+      letter-spacing: -0.2px;
+    }
+    .scores .v.danger{ color: var(--danger); }
+
+    /* buttons row (레퍼런스: 오른쪽 중간에 세 개) */
+    .actions{
+      display:flex;
+      gap: 12px;
+      margin-top: 2px;
+    }
+    .btn{
+      border:0;
+      border-radius: 999px;
+      padding: 10px 18px;
+      font-weight: 1200;
+      font-size: 16px;
+      cursor:pointer;
+      letter-spacing: -0.2px;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.10);
+      transition: transform .08s ease, filter .12s ease;
+    }
+    .btn:active{ transform: translateY(1px); }
+    .btn.approve{ background: var(--olive); color:#fff; }
+    .btn.hold{ background: #6a6a2a; color:#fff; }
+    .btn.reject{ background: var(--danger); color:#fff; }
+
+    .btn.selected{
+      filter: brightness(1.03) saturate(1.03);
+      outline: 3px solid rgba(183,191,57,0.30);
+      outline-offset: 2px;
+    }
+    .btn.hold.selected{ outline-color: rgba(111,109,42,0.30); }
+    .btn.reject.selected{ outline-color: rgba(227,90,87,0.30); }
+
+    /* total score block */
+    .totalBox{
+      justify-self:end;
+      text-align:left;
+    }
+    .totalLabel{
+      font-weight: 1200;
+      font-size: 15px;
+      opacity: 0.9;
+      margin-bottom: 6px;
+      white-space: nowrap;
+    }
+    .totalScore{
+      font-weight: 1400;
+      font-size: 64px;  /* ✅ 레퍼런스: 큰 숫자지만 카드 높이에 맞게 */
+      letter-spacing: -1.2px;
+      line-height: 0.95;
+      color: var(--olive);
+    }
+
+    /* chevron */
+    .chev{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: var(--oliveDeep);
+      font-size: 70px;
+      font-weight: 1400;
+      user-select:none;
+    }
+
+    /* ================= Responsive ================= */
+    @media (max-width: 1280px){
+      .kpis{ grid-template-columns: repeat(2, minmax(260px, 1fr)); }
+      .proposal{
+        grid-template-columns: 240px 1fr;
+        align-items:start;
+      }
+      .right{ grid-template-columns: 1fr 150px; margin-top: 10px; }
+      .chev{ display:none; }
+    }
+    @media (max-width: 920px){
+      .app{ grid-template-columns: 1fr; height:auto; }
+      .sidebar{ position: relative; height:auto; }
+      .main{ height:auto; overflow: visible; padding: 22px 16px 30px; }
+      .proposal{ grid-template-columns: 1fr; }
+      .thumb{ width: 100%; height: 180px; }
+      .right{ grid-template-columns: 1fr; }
+      .totalBox{ justify-self:start; margin-top: 10px; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="sb-brand">Olive Partner<br/>Studio</div>
+
+      <div class="sb-profile">
+        <div class="avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5zm0 2c-4.42 0-8 2.24-8 5v3h16v-3c0-2.76-3.58-5-8-5z"/>
+          </svg>
+        </div>
+        <div class="hello">
+          <div class="name"><span id="mdName">김오령</span> MD님!</div>
+          <div class="msg">반갑습니다</div>
+        </div>
+      </div>
+
+      <nav class="sb-menu" aria-label="메뉴">
+        <a class="sb-item active" href="#">메인 대시보드</a>
+        <a class="sb-item" href="#">전체 제안서 확인하기</a>
+        <a class="sb-item" href="#">승인 목록 확인하기</a>
+        <a class="sb-item" href="#">보류 목록 확인하기</a>
+        <a class="sb-item" href="#">반려 목록 확인하기</a>
+      </nav>
+    </aside>
+
+    <!-- Main -->
+    <main class="main">
+      <div class="contentWrap">
+        <h1 class="h1">오늘의 제휴 현황</h1>
+
+        <section class="kpis" aria-label="오늘의 제휴 현황 KPI">
+          <div class="kpi">
+            <div class="label">검토해야할 건수</div>
+            <div class="valueRow">
+              <div class="value" id="kpiCount">62</div>
+              <div class="unit">건</div>
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="label">프로덕트 스코어</div>
+            <div class="valueRow">
+              <div class="value" id="kpiProduct">75</div>
+              <div class="unit">%</div>
+            </div>
+          </div>
+          <div class="kpi">
+            <div class="label">브랜드 스코어</div>
+            <div class="valueRow">
+              <div class="value" id="kpiBrand">81</div>
+              <div class="unit">%</div>
+            </div>
+          </div>
+          <div class="kpi danger">
+            <div class="label">리스크 스코어</div>
+            <div class="valueRow">
+              <div class="value" id="kpiRisk">15</div>
+              <div class="unit">%</div>
+            </div>
+          </div>
+        </section>
+
+        <div class="sectionHead">
+          <h2 class="sectionTitle">주목할 만한 사업 <span class="accent">Top 10</span></h2>
+
+          <div class="sortBox">
+            <span>정렬</span>
+            <span class="sortWrap">
+              <select class="sortSelect" id="sortSelect" aria-label="정렬 기준">
+                <option value="total_desc" selected>종합 스코어 높은 순</option>
+                <option value="product_desc">프로덕트 높은 순</option>
+                <option value="brand_desc">브랜드 높은 순</option>
+                <option value="risk_asc">리스크 낮은 순</option>
+                <option value="risk_desc">리스크 높은 순</option>
+              </select>
+            </span>
+          </div>
+        </div>
+
+        <section class="list" id="list" aria-label="제안 리스트"></section>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const proposals = [
+      {
+        id: 1,
+        category: "스킨케어",
+        title: "쌩얼에도 빛나게, 속광 수분크림",
+        company: "한실 산업",
+        bullets: [
+          { type: "good", text: "성분이 우수하고 용량대비 단가가 저렴해요" },
+          { type: "bad",  text: "패키지 디자인의 차별성이 필요해요" }
+        ],
+        product: 93, brand: 57, risk: 2, total: 78,
+        status: null
+      },
+      {
+        id: 2,
+        category: "스킨케어",
+        title: "쌩얼에도 빛나게, 속광 수분크림",
+        company: "한실 산업",
+        bullets: [
+          { type: "good", text: "성분이 우수하고 용량대비 단가가 저렴해요" },
+          { type: "bad",  text: "패키지 디자인의 차별성이 필요해요" }
+        ],
+        product: 93, brand: 57, risk: 2, total: 78,
+        status: null
+      },
+      {
+        id: 3,
+        category: "스킨케어",
+        title: "쌩얼에도 빛나게, 속광 수분크림",
+        company: "한실 산업",
+        bullets: [
+          { type: "good", text: "성분이 우수하고 용량대비 단가가 저렴해요" },
+          { type: "bad",  text: "패키지 디자인의 차별성이 필요해요" }
+        ],
+        product: 93, brand: 57, risk: 2, total: 78,
+        status: null
+      },
+    ];
+
+    function cmp(a, b, mode){
+      switch(mode){
+        case "total_desc": return b.total - a.total;
+        case "product_desc": return b.product - a.product;
+        case "brand_desc": return b.brand - a.brand;
+        case "risk_asc": return a.risk - b.risk;
+        case "risk_desc": return b.risk - a.risk;
+        default: return b.total - a.total;
+      }
+    }
+
+    function render(){
+      const sortMode = document.getElementById("sortSelect").value;
+      const list = document.getElementById("list");
+      const items = [...proposals].sort((a,b)=>cmp(a,b,sortMode));
+
+      list.innerHTML = items.map(p => {
+        const bulletHtml = p.bullets.map(b => `<li class="${b.type}">${b.text}</li>`).join("");
+        const status = p.status;
+
+        return `
+          <article class="proposal" data-id="${p.id}">
+            <div class="thumb" aria-hidden="true"></div>
+
+            <div class="mid">
+              <div class="pill">${p.category}</div>
+              <h3 class="title">${p.title}</h3>
+              <p class="company">${p.company}</p>
+              <ul class="bullets">${bulletHtml}</ul>
+            </div>
+
+            <div class="right">
+              <div class="scoreBox">
+                <div class="scores">
+                  <div class="k">프로덕트</div><div class="v">${p.product}</div>
+                  <div class="k">브랜드</div><div class="v">${p.brand}</div>
+                  <div class="k">리스크</div><div class="v danger">${p.risk}</div>
+                </div>
+
+                <div class="actions" aria-label="상태 선택">
+                  <button class="btn approve ${status==="approve" ? "selected":""}" data-action="approve">승인</button>
+                  <button class="btn hold ${status==="hold" ? "selected":""}" data-action="hold">보류</button>
+                  <button class="btn reject ${status==="reject" ? "selected":""}" data-action="reject">반려</button>
+                </div>
+              </div>
+
+              <div class="totalBox">
+                <div class="totalLabel">종합 스코어</div>
+                <div class="totalScore">${p.total}</div>
+              </div>
+            </div>
+
+            <div class="chev" aria-hidden="true">›</div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    document.addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if(!btn) return;
+      const card = e.target.closest("article[data-id]");
+      if(!card) return;
+
+      const id = Number(card.dataset.id);
+      const action = btn.dataset.action;
+
+      const p = proposals.find(x => x.id === id);
+      if(!p) return;
+
+      p.status = (p.status === action) ? null : action;
+      render();
+    });
+
+    document.getElementById("sortSelect").addEventListener("change", render);
+    render();
+  </script>
+</body>
+</html>
