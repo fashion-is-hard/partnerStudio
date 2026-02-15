@@ -1,0 +1,511 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Olive Partner Studio — Seller Console</title>
+  <style>
+    :root{
+      --bg:#2f312c;
+      --sidebar:#3a7c86;        /* teal */
+      --line: rgba(255,255,255,0.22);
+
+      --card:#ffffff;
+      --ink:#1f231f;
+
+      --chip:#2f6f79;
+      --chipText:#ffffff;
+
+      --scoreBlue:#7ea8b4;      /* ✅ 하늘색(종합 스코어/프로덕트) */
+      --scoreTeal:#2f6f79;      /* 브랜드 */
+      --danger:#e35a57;
+
+      --shadow: 0 10px 18px rgba(0,0,0,0.22);
+
+      --r14:14px;
+      --r18:18px;
+      --r22:22px;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto,
+                   "Apple SD Gothic Neo","Noto Sans KR","Malgun Gothic", sans-serif;
+      background: var(--bg);
+      color:#fff;
+      overflow-x:hidden;
+    }
+
+    /* Layout */
+    .app{
+      height:100vh;
+      display:grid;
+      grid-template-columns: 340px 1fr;
+      min-width:0;
+    }
+
+    /* Sidebar */
+    .sidebar{
+      background: var(--sidebar);
+      padding: 28px 26px;
+      position: sticky;
+      top:0;
+      height:100vh;
+      overflow:hidden;
+      display:flex;
+      flex-direction:column;
+      gap: 18px;
+      min-width:0;
+    }
+
+    .brand{
+      font-weight: 1100;
+      font-style: italic;
+      font-size: 34px;
+      letter-spacing: -0.6px;
+      line-height: 1.05;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    .profile{
+      display:flex;
+      align-items:center;
+      gap: 16px;
+      padding: 6px 0 0;
+      min-width:0;
+    }
+    .avatar{
+      width: 86px; height:86px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.35);
+      display:grid;
+      place-items:center;
+      box-shadow: inset 0 0 0 7px rgba(255,255,255,0.18);
+      flex:0 0 auto;
+    }
+    .avatar svg{ width: 46px; height:46px; fill:#fff; opacity:0.95; }
+
+    .hello{ min-width:0; }
+    .hello .name{
+      font-weight: 1200;
+      font-size: 22px;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+    .hello .msg{
+      margin-top: 8px;
+      font-weight: 1200;
+      font-size: 22px;
+      color: rgba(255,255,255,0.65);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ✅ 로그아웃 버튼 */
+    .logout{
+      display:block;
+      width: 100%;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border: 2px solid rgba(255,255,255,0.28);
+      background: rgba(0,0,0,0.12);
+      color:#fff;
+      font-weight: 1100;
+      font-size: 16px;
+      letter-spacing: -0.2px;
+      cursor:pointer;
+      text-align:center;
+      text-decoration:none;
+      transition: transform .08s ease, background .12s ease, border-color .12s ease;
+    }
+    .logout:hover{
+      background: rgba(0,0,0,0.18);
+      border-color: rgba(255,255,255,0.38);
+    }
+    .logout:active{ transform: translateY(1px); }
+
+    .menu{
+      margin-top: 16px;
+      border-top: 2px solid var(--line);
+    }
+    .item{
+      display:flex;
+      align-items:center;
+      padding: 20px 10px;
+      font-weight: 1100;
+      font-size: 22px;
+      letter-spacing:-0.3px;
+      color:#fff;
+      text-decoration:none;
+      border-bottom: 2px solid var(--line);
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+      transition: background .12s ease;
+    }
+    .item:hover{ background: rgba(0,0,0,0.10); }
+    .item.active{ background: rgba(0,0,0,0.16); }
+
+    /* Main */
+    .main{
+      height:100vh;
+      overflow:auto;
+      overflow-x:hidden;
+      padding: 30px 34px 50px;
+      min-width:0;
+    }
+    .wrap{
+      max-width: 1320px;
+      min-width:0;
+    }
+
+    .h1{
+      margin: 0 0 18px;
+      font-size: 42px;
+      font-weight: 1200;
+      letter-spacing: -0.9px;
+    }
+
+    /* Cards list */
+    .list{
+      display:flex;
+      flex-direction:column;
+      gap: 20px;
+      padding-bottom: 40px;
+    }
+
+    .card{
+      background: var(--card);
+      color: var(--ink);
+      border-radius: var(--r22);
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(0,0,0,0.08);
+      padding: 18px 22px;
+      display:grid;
+      grid-template-columns: 230px 1fr 300px 70px;
+      gap: 18px;
+      align-items:center;
+      min-width:0;
+      min-height: 150px;
+    }
+
+    .thumb{
+      width: 100%;
+      height: 122px;
+      border-radius: 14px;
+      background: #9fc5cf;
+      border: 1px solid rgba(0,0,0,0.10);
+    }
+
+    .mid{
+      min-width:0;
+      display:flex;
+      flex-direction:column;
+      gap: 8px;
+    }
+
+    .pill{
+      width: fit-content;
+      background: var(--chip);
+      color: var(--chipText);
+      font-weight: 1100;
+      font-size: 13px;
+      padding: 6px 12px;
+      border-radius: 999px;
+    }
+
+    .title{
+      margin:0;
+      font-size: 26px;
+      font-weight: 1300;
+      letter-spacing:-0.6px;
+      line-height:1.15;
+      word-break: keep-all;
+    }
+    .company{
+      margin:0;
+      font-size: 16px;
+      font-weight: 1100;
+      opacity: 0.85;
+      white-space: nowrap;
+      overflow:hidden;
+      text-overflow: ellipsis;
+    }
+
+    /* ✅ 심사상태: 한 줄 정렬 */
+    .statusRow{
+      margin-top: 12px;
+      display:flex;
+      align-items:center;
+      gap: 12px;
+      flex-wrap: nowrap;             /* ✅ 줄바꿈 금지 */
+      min-width:0;
+    }
+    .statusLabel{
+      font-weight: 1200;
+      font-size: 22px;
+      letter-spacing: -0.4px;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .statusChip{
+      border-radius: 999px;
+      padding: 8px 14px;
+      font-weight: 1200;
+      font-size: 18px;
+      color:#fff;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+    .statusChip.approved{ background: #86b8c4; } /* light teal */
+    .statusChip.hold{ background: #2f6f79; }     /* teal */
+    .statusChip.rejected{ background: var(--danger); }
+
+    .statusMsg{
+      font-weight: 1200;
+      font-size: 18px;
+      letter-spacing: -0.2px;
+      white-space: nowrap;           /* ✅ 한 줄 */
+      overflow: hidden;              /* ✅ 넘치면 ... */
+      text-overflow: ellipsis;
+      min-width: 0;
+      flex: 1 1 auto;
+    }
+    .statusMsg.approved{ color: #86b8c4; }
+    .statusMsg.hold{ color: #2f6f79; }
+    .statusMsg.rejected{ color: var(--danger); }
+
+    .right{
+      display:grid;
+      grid-template-columns: 1fr 1fr;
+      column-gap: 18px;
+      align-items:center;
+      min-width:0;
+    }
+
+    .scores{
+      display:grid;
+      grid-template-columns: 1fr auto;
+      row-gap: 10px;
+      column-gap: 10px;
+      font-weight: 1100;
+      font-size: 18px;
+      align-items:center;
+      min-width:0;
+    }
+    .scores .k{ opacity:0.9; }
+    .scores .v{
+      font-weight: 1300;
+      font-size: 26px;
+      letter-spacing:-0.2px;
+      text-align:right;
+      white-space: nowrap;
+    }
+    .v.blue{ color: var(--scoreBlue); }
+    .v.teal{ color: var(--scoreTeal); }
+    .v.danger{ color: var(--danger); }
+
+    .total{
+      justify-self:end;
+      text-align:left;
+      min-width:0;
+    }
+    .totalLabel{
+      font-weight: 1200;
+      font-size: 16px;
+      opacity:0.9;
+      margin-bottom: 8px;
+      white-space: nowrap;
+    }
+    .totalScore{
+      font-weight: 1400;
+      font-size: 70px;
+      letter-spacing: -1.2px;
+      line-height: 0.95;
+      color: var(--scoreBlue);       /* ✅ 종합 스코어 하늘색 고정 */
+      white-space: nowrap;
+    }
+
+    .chev{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      color: #6b6a2a;
+      font-size: 78px;
+      font-weight: 1400;
+      user-select:none;
+    }
+
+    /* Responsive */
+    @media (max-width: 1200px){
+      .card{ grid-template-columns: 230px 1fr 280px 60px; }
+    }
+    @media (max-width: 980px){
+      .app{ grid-template-columns: 1fr; height:auto; }
+      .sidebar{ position: relative; height:auto; }
+      .main{ height:auto; overflow: visible; padding: 22px 16px 34px; }
+      .card{ grid-template-columns: 1fr; }
+      .right{ grid-template-columns: 1fr 1fr; justify-self:start; }
+      .chev{ display:none; }
+      /* 모바일에선 메시지만 줄바꿈 허용 */
+      .statusMsg{ white-space: normal; }
+      .statusRow{ flex-wrap: wrap; }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="app">
+    <aside class="sidebar">
+      <div class="brand">Olive Partner Studio</div>
+
+      <div class="profile">
+        <div class="avatar" aria-hidden="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 12c2.76 0 5-2.24 5-5S14.76 2 12 2 7 4.24 7 7s2.24 5 5 5zm0 2c-4.42 0-8 2.24-8 5v3h16v-3c0-2.76-3.58-5-8-5z"/>
+          </svg>
+        </div>
+        <div class="hello">
+          <div class="name">한세리 셀러님!</div>
+          <div class="msg">반갑습니다</div>
+        </div>
+      </div>
+
+      <!-- ✅ 로그아웃 -->
+      <a class="logout" href="index.html">로그아웃</a>
+
+      <nav class="menu" aria-label="셀러 메뉴">
+        <a class="item active" href="#">메인 대시보드</a>
+        <a class="item" href="#">새로운 제안서 작성하기</a>
+        <a class="item" href="#">승인 목록 확인하기</a>
+        <a class="item" href="#">보류 목록 확인하기</a>
+        <a class="item" href="#">반려 목록 확인하기</a>
+      </nav>
+    </aside>
+
+    <main class="main">
+      <div class="wrap">
+        <h1 class="h1">제휴 심사 결과</h1>
+
+        <section class="list" aria-label="제휴 심사 결과 리스트">
+          <!-- 카드 1: 반려 -->
+<article class="card">
+  <div class="thumb"></div>
+
+  <div class="mid">
+    <div class="pill">스킨케어</div>
+    <h3 class="title">쌩얼에도 빛나게, 속광 수분크림</h3>
+    <p class="company">한실 산업</p>
+
+    <div class="statusRow">
+      <div class="statusLabel">현재심사상태</div>
+      <span class="statusChip rejected">반려</span>
+      <div class="statusMsg rejected">
+        성분 인증 서류가 누락되었어요. <br>
+        인체적용시험 자료와 전성분 리스트를 보완해주시면 재검토가 가능해요.
+      </div>
+    </div>
+  </div>
+
+  <div class="right" style="align-items:flex-start;">
+    <div class="scores">
+      <div class="k">프로덕트</div><div class="v blue">82</div>
+      <div class="k">브랜드</div><div class="v teal">61</div>
+      <div class="k">리스크</div><div class="v danger">21</div>
+    </div>
+
+    <div class="total">
+      <div class="totalLabel">종합 스코어</div>
+      <div class="totalScore">68</div>
+    </div>
+  </div>
+
+  <div class="chev">›</div>
+</article>
+
+
+
+<!-- 카드 2: 보류 -->
+<article class="card">
+  <div class="thumb"></div>
+
+  <div class="mid">
+    <div class="pill">메이크업</div>
+    <h3 class="title">하루종일 밀착 글로우 쿠션</h3>
+    <p class="company">루미코스</p>
+
+    <div class="statusRow">
+      <div class="statusLabel">현재심사상태</div>
+      <span class="statusChip hold">보류</span>
+      <div class="statusMsg hold">
+        심사를 보류 중이에요. <br>
+        경쟁 제품 대비 차별 USP가 부족해요. 전/후 비교 이미지와 소비자 리뷰 근거를 보완해주세요.
+      </div>
+    </div>
+  </div>
+
+  <div class="right" style="align-items:flex-start;">
+    <div class="scores">
+      <div class="k">프로덕트</div><div class="v blue">74</div>
+      <div class="k">브랜드</div><div class="v teal">66</div>
+      <div class="k">리스크</div><div class="v danger">8</div>
+    </div>
+
+    <div class="total">
+      <div class="totalLabel">종합 스코어</div>
+      <div class="totalScore">73</div>
+    </div>
+  </div>
+
+  <div class="chev">›</div>
+</article>
+
+
+
+<!-- 카드 3: 승인 -->
+<article class="card">
+  <div class="thumb"></div>
+
+  <div class="mid">
+    <div class="pill">헤어케어</div>
+    <h3 class="title">단백질 리페어 집중 트리트먼트</h3>
+    <p class="company">에코랩</p>
+
+    <div class="statusRow">
+      <div class="statusLabel">현재심사상태</div>
+      <span class="statusChip approved">승인</span>
+      <div class="statusMsg approved">
+        심사가 승인되었어요! <br>
+        제품력과 가격 경쟁력이 우수하며, 초기 물량 협의 후 입점 일정 조율 예정이에요.
+      </div>
+    </div>
+  </div>
+
+  <div class="right" style="align-items:flex-start;">
+    <div class="scores">
+      <div class="k">프로덕트</div><div class="v blue">91</div>
+      <div class="k">브랜드</div><div class="v teal">72</div>
+      <div class="k">리스크</div><div class="v danger">5</div>
+    </div>
+
+    <div class="total">
+      <div class="totalLabel">종합 스코어</div>
+      <div class="totalScore">86</div>
+    </div>
+  </div>
+
+  <div class="chev">›</div>
+</article>
+        </section>
+      </div>
+    </main>
+  </div>
+</body>
+</html>
